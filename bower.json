@@ -1,0 +1,26 @@
+{
+  "name": "minimum-angle-dfs",
+  "homepage": "https://github.com/megrela/minimum-angle-dfs",
+  "authors": [
+    "megrela"
+  ],
+  "description": "minimum angle dfs heuristic algorithm for planar graphs",
+  "main": "minimum-angle-dfs.algorithm.js",
+  "moduleType": [],
+  "keywords": [
+    "heuristic",
+    "dfs",
+    "minimum",
+    "angle",
+    "planar",
+    "graph"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
