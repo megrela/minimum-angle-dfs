@@ -106,6 +106,8 @@ MinimumAngleDfsAlgorithm.prototype.dfs = function (current, prev, dist) {
  * @param t
  */
 MinimumAngleDfsAlgorithm.calculateAngle = function (s, v, t) {
+    if (v.id == t.id) return -2;
+
     var dxsv = Math.abs(s.x - v.x);
     var dysv = Math.abs(s.y - v.y);
     var sv2 = dxsv * dxsv + dysv * dysv;
