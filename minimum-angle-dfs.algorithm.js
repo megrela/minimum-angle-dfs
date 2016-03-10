@@ -71,6 +71,7 @@ MinimumAngleDfsAlgorithm.prototype.dfs = function (current, prev, dist) {
     }
 
     var i, adjAngles = [], adj;
+
     for (i=0; i<me.graph.adj[current].length; i++) {
         adj = me.graph.adj[current][i];
         adjAngles.push({
@@ -88,8 +89,13 @@ MinimumAngleDfsAlgorithm.prototype.dfs = function (current, prev, dist) {
     });
 
     for (i=0; i<adjAngles.length; i++) {
-        adj = adjAngles[i];
-        me.dfs(adj, current, dist+1);
+        adj = adjAngles[i].adj;
+        if (me.visited[adj] === false) {
+            me.dfs(adj, current, dist + 1);
+            if (me.visited[me.tail]) {
+                return;
+            }
+        }
     }
 };
 
@@ -114,9 +120,10 @@ MinimumAngleDfsAlgorithm.calculateAngle = function (s, v, t) {
 
     /**
      * st^2 = sv^2 + vt^2 - 2 sv vt cos(svt)
-     * cos(svt) = (sv^2 + vt^2 - st^2) / Math.sqrt( sv^2 * vt^2 )
+     * cos(svt) = (sv^2 + vt^2 - st^2) / 2 * Math.sqrt( sv^2 * vt^2 )
      */
 
-    return 1. * (sv2 + vt2 + st2) / Math.sqrt(sv2 * vt2);
+    var cosangle = 1. * (sv2 + vt2 - st2) / (2 * Math.sqrt(sv2 * vt2));
+    return cosangle;
 };
 
