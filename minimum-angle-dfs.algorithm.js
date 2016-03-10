@@ -40,6 +40,7 @@ MinimumAngleDfsAlgorithm.prototype.reset = function () {
     me.visited = [];
     me.parent = [];
     me.dist = [];
+    me.path = [];
     for (var i=0; i<me.n; i++) {
         me.visited.push(false);
         me.parent.push(-1);
@@ -58,8 +59,16 @@ MinimumAngleDfsAlgorithm.prototype.dfs = function (current, prev, dist) {
     me.dist[current] = dist;
     me.parent[current] = prev;
     me.visited[current] = true;
-    if (current === me.tail)
+
+    if (current === me.tail) {
+        var x = me.tail;
+        while (x != me.source) {
+            me.path.push(x);
+            x = me.parent[x];
+        }
+        me.path.reverse();
         return;
+    }
 
     var i, adjAngles = [], adj;
     for (i=0; i<me.graph.adj[current].length; i++) {
