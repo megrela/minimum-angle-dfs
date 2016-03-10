@@ -33,30 +33,32 @@ function MinimumAngleDfsAlgorithm(graph, source, tail) {
     me.n = graph.vertices.length;
     me.source = source;
     me.tail = tail;
+    initializeAdjList();
 
-    initializeLocalArrays();
-
-    function initializeLocalArrays() {
-        var i;
-        me.visited = [];
-        me.parent = [];
-        me.dist = [];
-        me.adj = [];
-        for (i=0; i<me.n; i++) {
-            me.visited.push(false);
-            me.parent.push(-1);
-            me.dist.push(1<<31);
-            me.adj.push([]);
-        }
-        for (i=0; i<me.graph.edges.length; i++) {
+    function initializeAdjList() {
+        for (var i=0; i<me.graph.edges.length; i++) {
             me.adj[me.graph.edges[i].a].push(me.graph.edges[i].b);
             me.adj[me.graph.edges[i].b].push(me.graph.edges[i].a);
         }
+
     }
 }
 
+MinimumAngleDfsAlgorithm.prototype.reset = function () {
+    var me = this;
+    me.visited = [];
+    me.parent = [];
+    me.dist = [];
+    for (var i=0; i<me.n; i++) {
+        me.visited.push(false);
+        me.parent.push(-1);
+        me.dist.push(1<<31);
+    }
+};
+
 MinimumAngleDfsAlgorithm.prototype.start = function () {
     var me = this;
+    me.reset();
     me.dfs(me.source, -1, 0);
 };
 
