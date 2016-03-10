@@ -13,12 +13,12 @@
  *              id: the index of current vertex in graph.vertices
  *          }
  *      each edge has structure: {a: vertex, b: vertex}
+ *      graph.adj - adjacent list of the given graph
  *
  * calculates heuristic minimal path from Vertex[source] to Vertex[tail]
  * source and tails ar IDs
  *
  * fills the local arrays:
- *      adj - adjacent list of the given graph
  *      visited[id] - rather Vertex[id] is visited or not during iteration, true or false
  *      dist[id] - if visited[id] then heuristic minimum length from source to Vertex[id] else INF
  *      parent[id] - if visited[id] then the id of previous vertex else -1
@@ -33,15 +33,6 @@ function MinimumAngleDfsAlgorithm(graph, source, tail) {
     me.n = graph.vertices.length;
     me.source = source;
     me.tail = tail;
-    initializeAdjList();
-
-    function initializeAdjList() {
-        for (var i=0; i<me.graph.edges.length; i++) {
-            me.adj[me.graph.edges[i].a].push(me.graph.edges[i].b);
-            me.adj[me.graph.edges[i].b].push(me.graph.edges[i].a);
-        }
-
-    }
 }
 
 MinimumAngleDfsAlgorithm.prototype.reset = function () {
@@ -71,8 +62,8 @@ MinimumAngleDfsAlgorithm.prototype.dfs = function (current, prev, dist) {
         return;
 
     var i, adjAngles = [], adj;
-    for (i=0; i<me.adj[current].length; i++) {
-        adj = me.adj[current][i];
+    for (i=0; i<me.graph.adj[current].length; i++) {
+        adj = me.graph.adj[current][i];
         adjAngles.push({
             adj: adj,
             angle: MinimumAngleDfsAlgorithm.calculateAngle(
